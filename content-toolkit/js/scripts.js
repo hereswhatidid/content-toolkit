@@ -39,7 +39,7 @@ var PostTypes = '',
 	/**
 	 * Flags a view model object as dirty if any observable property within it is modified
 	 * 
-	 * @author Gabe Shackle <gabe@risdall.com>
+	 * @author Gabe Shackle <gabe@hereswhatidid.com>
 	 * @param  object		root				The ViewModel to watch for changes
 	 * @param  boolean		isInitiallyDirty	Whether or not the dirty flag should be true upon initialization
 	 * @return object							The resulting observable property
@@ -60,6 +60,74 @@ var PostTypes = '',
 
 		return result;
 	};
+	/**
+	 * Creates a checkbox list that is bound to an observable array
+	 * 
+	 * @type Knockout Binding Handler
+	 */
+	ko.bindingHandlers.checkboxList = {
+		init: function( element, valueAccessor, allBindingsAccessor ) {
+			var observable = valueAccessor(),
+				options = allBindingsAccessor(),
+				inputs = element.getElementsByTagName( 'input' );
+
+
+			for ( var i=0, max = inputs.length; i < max; i++ ) {
+				if ( inputs[i].type === 'checkbox' ) {
+					// checkboxes.push( inputs[i] );
+					if ( observable.indexOf( inputs[i].value ) > -1 ) {
+						inputs[i].checked = true;
+					}
+
+					ko.utils.registerEventHandler( inputs[i], "click", function () {
+						var observable = valueAccessor(),
+							newValue = $( this ).val();
+
+						if ( this.checked ) {
+							if ( observable.indexOf( this.value ) < 0 ) {
+								observable.push( this.value );
+							}
+						} else {
+							if ( observable.indexOf( this.value ) > -1 ) {
+								observable.remove( this.value );
+							}
+						}
+						// observable( newValue );
+						if ( DEBUG ) {
+							console.log( 'Checked: ', this.checked );
+						}
+					});
+				}
+			}
+
+			// if ( DEBUG ) {
+
+			// 	console.log( 'Inputs: ', inputs );
+			// 	console.log( 'Element: ', element );
+			// 	console.log( 'Observable: ', observable() );
+			// 	console.log( 'Fields: ', checkboxes );
+			// }
+
+		},
+		update: function( element, valueAccessor, allBindingsAccessor ) {
+			var observable = valueAccessor(),
+				options = allBindingsAccessor(),
+				inputs = element.getElementsByTagName( 'input' );
+
+
+			for ( var i=0, max = inputs.length; i < max; i++ ) {
+				if ( inputs[i].type === 'checkbox' ) {
+					if ( observable.indexOf( inputs[i].value ) > -1 ) {
+						inputs[i].checked = true;
+					}
+				}
+			}
+
+			if ( DEBUG ) {
+				console.log( 'Observable: ', observable() );
+			}
+		}
+	}
 	/**
 	 * Custom binding handler to handle select boxes that contain an "other" option
 	 * 
@@ -84,8 +152,6 @@ var PostTypes = '',
 						} else {
 							observable( newValue );
 						}
-
-						console.log( observable() );
 					}
 				});
 			

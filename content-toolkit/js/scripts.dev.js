@@ -4522,6 +4522,46 @@ var PostTypes = "", temp;
         };
         return result;
     };
+    ko.bindingHandlers.checkboxList = {
+        init: function(element, valueAccessor, allBindingsAccessor) {
+            var observable = valueAccessor(), options = allBindingsAccessor(), inputs = element.getElementsByTagName("input");
+            for (var i = 0, max = inputs.length; i < max; i++) {
+                if (inputs[i].type === "checkbox") {
+                    if (observable.indexOf(inputs[i].value) > -1) {
+                        inputs[i].checked = true;
+                    }
+                    ko.utils.registerEventHandler(inputs[i], "click", function() {
+                        var observable = valueAccessor(), newValue = $(this).val();
+                        if (this.checked) {
+                            if (observable.indexOf(this.value) < 0) {
+                                observable.push(this.value);
+                            }
+                        } else {
+                            if (observable.indexOf(this.value) > -1) {
+                                observable.remove(this.value);
+                            }
+                        }
+                        if (DEBUG) {
+                            console.log("Checked: ", this.checked);
+                        }
+                    });
+                }
+            }
+        },
+        update: function(element, valueAccessor, allBindingsAccessor) {
+            var observable = valueAccessor(), options = allBindingsAccessor(), inputs = element.getElementsByTagName("input");
+            for (var i = 0, max = inputs.length; i < max; i++) {
+                if (inputs[i].type === "checkbox") {
+                    if (observable.indexOf(inputs[i].value) > -1) {
+                        inputs[i].checked = true;
+                    }
+                }
+            }
+            if (DEBUG) {
+                console.log("Observable: ", observable());
+            }
+        }
+    };
     ko.bindingHandlers.selectWithOther = {
         init: function(element, valueAccessor, allBindingsAccessor) {
             var observable = valueAccessor(), options = allBindingsAccessor().selectWithOtherOptions, selectInput = {}, textInput = {}, interceptor = ko.computed({
@@ -4536,7 +4576,6 @@ var PostTypes = "", temp;
                     } else {
                         observable(newValue);
                     }
-                    console.log(observable());
                 }
             });
             if (options !== "undefined") {

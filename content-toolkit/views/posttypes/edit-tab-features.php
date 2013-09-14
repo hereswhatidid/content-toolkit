@@ -3,69 +3,69 @@
 		<div class="row-fluid">
 			<label class="col-lg-12" for="">Supports</label>
 		</div>
-		<div class="row-fluid">
+		<div class="row-fluid" data-bind="checkboxList: supports">
 			<div class="col-lg-6">
 				<div class="checkbox">
 					<label>
-						<input type="checkbox" value="title" data-bind="checked: supports().indexOf( 'title' ) !== -1, click: $parent.addSupports"> <?php _e( 'Title', $this->plugin_slug ); ?>
+						<input type="checkbox" value="title"> <?php _e( 'Title', $this->plugin_slug ); ?>
 					</label>
 				</div>
 				<div class="checkbox">
 					<label>
-						<input type="checkbox" value="editor" data-bind="checked: supports().indexOf( 'editor' ) !== -1, click: $parent.addSupports"> <?php _e( 'Content', $this->plugin_slug ); ?>
+						<input type="checkbox" value="editor"> <?php _e( 'Content', $this->plugin_slug ); ?>
 					</label>
 				</div>
 				<div class="checkbox">
 					<label>
-						<input type="checkbox" value="excerpt" data-bind="checked: supports().indexOf( 'excerpt' ) !== -1, click: $parent.addSupports"> <?php _e( 'Excerpt', $this->plugin_slug ); ?>
+						<input type="checkbox" value="excerpt"> <?php _e( 'Excerpt', $this->plugin_slug ); ?>
 					</label>
 				</div>
 				<div class="checkbox">
 					<label>
-						<input type="checkbox" value="author" data-bind="checked: supports().indexOf( 'author' ) !== -1, click: $parent.addSupports"> <?php _e( 'Author', $this->plugin_slug ); ?>
+						<input type="checkbox" value="author"> <?php _e( 'Author', $this->plugin_slug ); ?>
 					</label>
 				</div>
 				<div class="checkbox">
 					<label>
-						<input type="checkbox" value="thumbnail" data-bind="checked: supports().indexOf( 'thumbnail' ) !== -1, click: $parent.addSupports"> <?php _e( 'Featured Image', $this->plugin_slug ); ?>
+						<input type="checkbox" value="thumbnail"> <?php _e( 'Featured Image', $this->plugin_slug ); ?>
 					</label>
 				</div>
 				<div class="checkbox">
 					<label>
-						<input type="checkbox" value="comments" data-bind="checked: supports().indexOf( 'comments' ) !== -1, click: $parent.addSupports"> <?php _e( 'Comments', $this->plugin_slug ); ?>
+						<input type="checkbox" value="comments"> <?php _e( 'Comments', $this->plugin_slug ); ?>
 					</label>
 				</div>
 			</div>
 			<div class="col-lg-6">
 				<div class="checkbox">
 					<label>
-						<input type="checkbox" value="trackbacks" data-bind="checked: supports().indexOf( 'trackbacks' ) !== -1, click: $parent.addSupports"> <?php _e( 'Trackbacks', $this->plugin_slug ); ?>
+						<input type="checkbox" value="trackbacks"> <?php _e( 'Trackbacks', $this->plugin_slug ); ?>
 					</label>
 				</div>
 				<div class="checkbox">
 					<label>
-						<input type="checkbox" value="revisions" data-bind="checked: supports().indexOf( 'revisions' ) !== -1, click: $parent.addSupports"> <?php _e( 'Revisions', $this->plugin_slug ); ?>
+						<input type="checkbox" value="revisions"> <?php _e( 'Revisions', $this->plugin_slug ); ?>
 					</label>
 				</div>
 				<div class="checkbox">
 					<label>
-						<input type="checkbox" value="custom-fields" data-bind="checked: supports().indexOf( 'custom-fields' ) !== -1, click: $parent.addSupports"> <?php _e( 'Custom Fields', $this->plugin_slug ); ?>
+						<input type="checkbox" value="custom-fields"> <?php _e( 'Custom Fields', $this->plugin_slug ); ?>
 					</label>
 				</div>
 				<div class="checkbox">
 					<label>
-						<input type="checkbox" value="page-attributes" data-bind="checked: supports().indexOf( 'page-attributes' ) !== -1, click: $parent.addSupports"> <?php _e( 'Page Attributes', $this->plugin_slug ); ?>
+						<input type="checkbox" value="page-attributes"> <?php _e( 'Page Attributes', $this->plugin_slug ); ?>
 					</label>
 				</div>
 				<div class="checkbox">
 					<label>
-						<input type="checkbox" value="post-formats" data-bind="checked: supports().indexOf( 'post-formats' ) !== -1, click: $parent.addSupports"> <?php _e( 'Post Formats', $this->plugin_slug ); ?>
+						<input type="checkbox" value="post-formats"> <?php _e( 'Post Formats', $this->plugin_slug ); ?>
 					</label>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="col-lg-4">
+	<div class="col-lg-4" data-bind="checkboxList: taxonomies">
 		<label for=""><?php _e( 'Taxonomies', $this->plugin_slug ); ?></label>
 		<?php
 		$taxonomiesBuiltin = get_taxonomies( array( '_builtin' => true ), 'objects' );
@@ -76,7 +76,7 @@
 		?>
 			<div class="checkbox">
 				<label>
-					<input type="checkbox" value="<?php echo $taxonomy->name; ?>" data-bind="checked: taxonomies().indexOf( '<?php echo $taxonomy->name; ?>' ) !== -1, click: $parent.addTaxonomy"> <?php echo $taxonomy->labels->name; ?>
+					<input type="checkbox" value="<?php echo $taxonomy->name; ?>"> <?php echo $taxonomy->labels->name; ?>
 				</label>
 			</div>
 		<?php
@@ -100,13 +100,19 @@
 			</select>
 			<span class="help-block"><?php _e( 'Can this post_type be exported.', $this->plugin_slug ); ?></span>
 		</p>
-		<p>
+		<p data-bind="selectWithOther: has_archive, selectWithOtherOptions: { selectField: '#post-type-has_archive', textField: '#post-type-has_archive_slug' }">
 			<label for="post-type-has_archive"><?php _e( 'Has Archive', $this->plugin_slug ); ?></label>
-			<select id="post-type-has_archive" class="form-control" data-bind="booleanValue: has_archive">
+			<select id="post-type-has_archive" class="form-control">
 				<option value="true"><?php _e( 'Yes', $this->plugin_slug ); ?></option>
 				<option value="false"><?php _e( 'No', $this->plugin_slug ); ?></option>
+				<option value="other"><?php _e( 'Custom', $this->plugin_slug ); ?></option>
 			</select>
 			<span class="help-block"><?php _e( 'Enables post type archives.', $this->plugin_slug ); ?></span>
+		</p>
+		<p>
+			<label for="post-type-has_archive_slug"><?php _e( 'Custom Archive Slug', $this->plugin_slug ); ?></label>
+			<input id="post-type-has_archive_slug" type="text" class="form-control">
+			<span class="help-block"><?php _e( 'Creates a custom slug for the archive.', $this->plugin_slug ); ?></span>
 		</p>
 		<p>
 			<label for="post-type-exclude_from_search"><?php _e( 'Exclude from Search', $this->plugin_slug ); ?></label>
