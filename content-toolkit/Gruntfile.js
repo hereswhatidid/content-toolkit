@@ -7,9 +7,7 @@ module.exports = function(grunt) {
 				jshintrc: '.jshintrc'
 			},
 			all: [
-			'assets/js/*.js',
-			'assets/js/plugins/*.js',
-			'!assets/js/scripts.min.js'
+			'!js/scripts.js'
 			]
 		},
 		less: {
@@ -41,9 +39,11 @@ module.exports = function(grunt) {
 				files: {
 					'js/scripts.dev.js': [
 						'js/vendor/bootstrap.js',
-						'js/vendor/knockout-2.3.0.js',
+						'js/vendor/knockout-3.0.0.js',
 						'js/vendor/knockout.mapping-2.4.1.js',
 						'js/vendor/pager.js',
+						'js/vm.posttype.js',
+						'js/vm.posttypes.js',
 						'js/scripts.js'
 						]
 				}
@@ -77,7 +77,7 @@ module.exports = function(grunt) {
 			},
 			js: {
 				files: [
-				'js/scripts.js'
+				'js/*.js'
 				],
 				tasks: ['jshint', 'uglify:development'],
 				options: {

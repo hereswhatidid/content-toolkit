@@ -22,5 +22,4 @@
 		<label for="post-type-query_var_text"><?php _e( 'Query Variable', $this->plugin_slug ); ?></label>
 		<input id="post-type-query_var_text" type="text" class="form-control" data-bind="attr: { disabled: ( query_var() !== 'custom' ) }">
 	</div>
-
 </div>

@@ -20,7 +20,8 @@ var PostTypes = '',
 				temp = ko.mapping.fromJS( result, {} );
 
 				if ( DEBUG ) {
-					console.log( temp );
+					// console.log( temp );
+					console.log( 'Results: ', result );
 				}
 
 				PostTypes = new PostTypesViewModel( result );
@@ -295,13 +296,19 @@ var PostTypes = '',
 	var PostTypesViewModel = function( data ) {
 		var self = this;
 
-		ko.mapping.fromJS( data, PostTypeMapping, this );
+		// ko.mapping.fromJS( data, PostTypeMapping, this );
 
 		self.originalPostData = ko.mapping.fromJS( data, PostTypeMapping );
 
 		self.modifiedPostTypes = ko.observableArray();
 
 		self.posttypeedit = ko.observable();
+
+		self.postTypes = ko.observableArray( ko.utils.arrayMap( data.postTypes, function( postType ) {
+			return new PostType( postType );
+		}));
+
+		// console.log( 'Post types: ', self.postTypes() );
 
 		self.isDetailView = ko.observable( false );
 
@@ -337,7 +344,7 @@ var PostTypes = '',
 
 		self.getByName = function( postTypeName ) {
 			var match = ko.utils.arrayFirst( self.postTypes(), function( item ) {
-				return postTypeName === item.name();
+				return postTypeName === item.postType();
 			});
 
 			return match;

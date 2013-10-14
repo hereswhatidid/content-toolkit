@@ -29,6 +29,11 @@
 				</div>
 			</div>
 			<div class="row-fluid">
+				<div class="col-lg-12">
+					<p><a href="" class="btn btn-primary">Add New</a></p>
+				</div>
+			</div>
+			<div class="row-fluid">
 				<div class="col-lg-12" data-bind="page: { id: 'viewall', role: 'start', beforeShow: setEditMode }">
 					<?php include_once( 'posttypes/index.php' ); ?>
 				</div>

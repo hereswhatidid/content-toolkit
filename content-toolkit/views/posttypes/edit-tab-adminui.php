@@ -10,7 +10,7 @@
 	</div>
 	<div class="col-lg-3">
 		<label for="post-type-show_ui"><?php _e( 'Show UI', $this->plugin_slug ); ?></label>
-		<select id="post-type-show_ui" class="form-control" data-bind="booleanValue: show_ui">
+		<select id="post-type-show_ui" class="form-control" data-bind="booleanValue: showUI">
 			<option value="true"><?php _e( 'Yes', $this->plugin_slug ); ?></option>
 			<option value="false"><?php _e( 'No', $this->plugin_slug ); ?></option>
 		</select>
@@ -18,7 +18,7 @@
 	</div>
 	<div class="col-lg-3">
 		<label for="post-type-show_in_nav_menus"><?php _e( 'Show in Nav Menus', $this->plugin_slug ); ?></label>
-		<select id="post-type-show_in_nav_menus" class="form-control" data-bind="booleanValue: show_in_nav_menus">
+		<select id="post-type-show_in_nav_menus" class="form-control" data-bind="booleanValue: showInNavMenus">
 			<option value="true"><?php _e( 'Yes', $this->plugin_slug ); ?></option>
 			<option value="false"><?php _e( 'No', $this->plugin_slug ); ?></option>
 		</select>
@@ -26,7 +26,7 @@
 	</div>
 	<div class="col-lg-3">
 		<label for="post-type-show_in_admin_bar"><?php _e( 'Show in Admin Bar', $this->plugin_slug ); ?></label>
-		<select id="post-type-show_in_admin_bar" class="form-control" data-bind="booleanValue: show_in_admin_bar">
+		<select id="post-type-show_in_admin_bar" class="form-control" data-bind="booleanValue: showInAdminBar">
 			<option value="true"><?php _e( 'Yes', $this->plugin_slug ); ?></option>
 			<option value="false"><?php _e( 'No', $this->plugin_slug ); ?></option>
 		</select>
@@ -34,7 +34,7 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-lg-3" data-bind="selectWithOther: show_in_menu, selectWithOtherOptions: { selectField: '#post-type-show_in_menu', textField: '#post-type-show_in_menu_other' }">
+	<div class="col-lg-3" data-bind="selectWithOther: showInAdminBar, selectWithOtherOptions: { selectField: '#post-type-show_in_menu', textField: '#post-type-show_in_menu_other' }">
 		<label for="post-type-show_in_menu"><?php _e( 'Show in Admin Menu', $this->plugin_slug ); ?></label><br>
 		<select id="post-type-show_in_menu" class="form-control">
 			<option value="true"><?php _e( 'Yes', $this->plugin_slug ); ?></option>
@@ -50,7 +50,7 @@
 	</div>
 	<div class="col-lg-3">
 		<label for="post-type-menu_position"><?php _e( 'Menu Position', $this->plugin_slug ); ?></label>
-		<select id="post-type-menu_position" class="form-control" data-bind="value: menu_position,
+		<select id="post-type-menu_position" class="form-control" data-bind="value: menuPosition,
 		attr: { disabled: ( show_in_menu() === false ) }">
 			<option value="5"><?php _e( 'Below Posts', $this->plugin_slug ); ?></option>
 			<option value="10"><?php _e( 'Below Media', $this->plugin_slug ); ?></option>
@@ -68,7 +68,7 @@
 	</div>
 	<div class="col-lg-3">
 		<label for="post-type-menu_icon"><?php _e( 'Menu Icon', $this->plugin_slug ); ?></label>
-		<input id="post-type-menu_icon" type="text" class="form-control" data-bind="value: menu_icon">
+		<input id="post-type-menu_icon" type="text" class="form-control" data-bind="value: menuIcon">
 		<span class="help-block"><?php _e( 'The url to the icon to be used for this menu.', $this->plugin_slug ); ?></span>
 	</div>
 </div>

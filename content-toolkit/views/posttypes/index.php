@@ -14,7 +14,7 @@
 			<td data-bind="text: source"></td>
 			<td>
 				<div class="btn-group pull-right">
-					<a class="btn btn-xs btn-success" data-bind="page-href: '/editposttype/' + name() + '/general', click: $root.editPostType">Edit</a>
+					<a class="btn btn-xs btn-success" data-bind="page-href: '/editposttype/' + postType() + '/general', click: $root.editPostType">Edit</a>
 					<a class="btn btn-xs btn-warning" data-bind="visible: dirtyFlag.isDirty(), click: revertPostType">Revert</a>
 					<a class="btn btn-xs btn-danger" data-bind="visible: source() !== 'Content Toolkit'">Disable</a>
 					<a class="btn btn-xs btn-danger" data-bind="visible: source() === 'Content Toolkit'">Delete</a>

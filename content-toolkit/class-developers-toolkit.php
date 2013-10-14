@@ -97,6 +97,8 @@ class Developers_Toolkit {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
+		add_action( 'registered_post_type', array( $this, 'get_post_type_source' ), 900, 2 );
+
 		// Define custom functionality. Read more about actions and filters: http://codex.wordpress.org/Plugin_API#Hooks.2C_Actions_and_Filters
 		add_action( 'wp_ajax_getposttypes', array( $this, 'ajax_get_post_types' ) );
 		add_filter( 'TODO', array( $this, 'filter_method_name' ) );
@@ -118,6 +120,13 @@ class Developers_Toolkit {
 		}
 
 		return self::$instance;
+	}
+
+	public function get_post_type_source( $post_type = NULL, $args = array() ) {
+		$backtrace = debug_backtrace();
+
+		// var_dump( $post_type );
+		// var_dump( plugin_dir_path( $backtrace[3]['file'] ) );
 	}
 
 	/**
@@ -298,6 +307,8 @@ class Developers_Toolkit {
 			$post_type_object->rewrite_with_front = false;
 			$post_type_object->rewrite_feeds = false;
 			$post_type_object->rewrite_pages = false;
+
+			$post_type_object->source = 'core';
 
 
 			if ( $post_type_object->menu_position === null ) {

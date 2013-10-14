@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-lg-3">
 		<label for="post-type-name"><?php _e( 'Post Type Name', $this->plugin_slug ); ?></label>
-		<input id="post-type-name" type="text" class="form-control" data-bind="value: name">
+		<input id="post-type-name" type="text" class="form-control" data-bind="value: postType">
 		<span class="help-block"><?php _e( 'Post type. (max. 20 characters, can not contain capital letters or spaces)', $this->plugin_slug ); ?></span>
 	</div>
 	<div class="col-lg-3">
