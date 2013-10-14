@@ -1,4 +1,4 @@
-/*global ajaxurl: '', DEBUG: true, pager: {} */
+/*global ajaxurl: '', DEBUG: true, pager: {}, ko: {}, PostType: {} */
 if (typeof DEBUG === 'undefined') {
 	window.DEBUG = true;
 }
@@ -101,14 +101,6 @@ var PostTypes = '',
 				}
 			}
 
-			// if ( DEBUG ) {
-
-			// 	console.log( 'Inputs: ', inputs );
-			// 	console.log( 'Element: ', element );
-			// 	console.log( 'Observable: ', observable() );
-			// 	console.log( 'Fields: ', checkboxes );
-			// }
-
 		},
 		update: function( element, valueAccessor, allBindingsAccessor ) {
 			var observable = valueAccessor(),
@@ -128,7 +120,7 @@ var PostTypes = '',
 				console.log( 'Observable: ', observable() );
 			}
 		}
-	}
+	};
 	/**
 	 * Custom binding handler to handle select boxes that contain an "other" option
 	 * 
@@ -255,50 +247,10 @@ var PostTypes = '',
 		}
 	};
 
-	var PostTypeMapping = {
-		'postTypes': {
-			create: function( data ) {
-				
-				return new PostTypeViewModel( data.data );
-			}
-		}
-	}
-
-	var PostTypeViewModel = function( data ) {
-
-		ko.mapping.fromJS( data, {}, this );
-
-		this.originalPostData = data;
-
-		this.editPostType = function( koObject, event ) {
-			PostTypes.posttypeedit( koObject );
-		}
-
-		this.revertPostType = function( koObject, event ) {
-			if ( DEBUG ) {
-				console.log( 'Revert data:', ko.mapping.fromJS( this.originalPostData, {}, this ) );
-			}
-
-			ko.mapping.fromJS( this.originalPostData, {}, this );
-		}
-
-		this.source = ko.computed( function() {
-			if ( this._builtin() === true ) {
-				return 'Core';
-			} else {
-				return 'Plugin';
-			}
-		}, this );
-
-		this.dirtyFlag = ko.dirtyFlag( this, false );
-	}
-
 	var PostTypesViewModel = function( data ) {
 		var self = this;
 
 		// ko.mapping.fromJS( data, PostTypeMapping, this );
-
-		self.originalPostData = ko.mapping.fromJS( data, PostTypeMapping );
 
 		self.modifiedPostTypes = ko.observableArray();
 
@@ -316,7 +268,7 @@ var PostTypes = '',
 
 		self.postTypeName.subscribe( function( newValue ) {
 			self.posttypeedit( self.getByName( newValue ) );
-			// console.log( 'Update to: ', newValue );
+			console.log( 'Update to: ', self.getByName( newValue ) );
 		} );
 
 		self.addSupports = function( koObject, event, d ) {
@@ -329,7 +281,7 @@ var PostTypes = '',
 
 			return true;
 
-		}
+		};
 
 		self.addTaxonomy = function( koObject, event, d ) {
 
@@ -340,30 +292,32 @@ var PostTypes = '',
 			}
 
 			return true;
-		}
+		};
 
 		self.getByName = function( postTypeName ) {
 			var match = ko.utils.arrayFirst( self.postTypes(), function( item ) {
-				return postTypeName === item.postType();
+				return postTypeName === item.actualValue().postType();
 			});
 
 			return match;
-		}
+		};
 
 		self.editPostType = function( koObject, event ) {
-			self.posttypeedit( koObject );
-			$('.tooltip-item').tooltip()
+			// console.log( koObject );
+			// self.posttypeedit( koObject );
+
+			$('.tooltip-item').tooltip();
 			return true;
-		}
+		};
 
 		self.setEditMode = function( page ) {
 			self.isDetailView( page.page.currentId !== 'viewall' );
 			// console.log( 'Page is: ', page.page.currentId );
-		}
+		};
 
 		self.clearEditPostType = function( koObject, event ) {
 			self.posttypeedit( null );
-		}
-	}
+		};
+	};
 
 })( jQuery, ko );

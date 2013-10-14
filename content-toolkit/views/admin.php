@@ -30,44 +30,48 @@
 			</div>
 			<div class="row-fluid">
 				<div class="col-lg-12">
-					<p><a href="" class="btn btn-primary">Add New</a></p>
+					<p><a href="" class="btn btn-xs btn-primary">Add New</a></p>
 				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="col-lg-12" data-bind="page: { id: 'viewall', role: 'start', beforeShow: setEditMode }">
 					<?php include_once( 'posttypes/index.php' ); ?>
 				</div>
-				<form action="#" data-bind="page: { id: 'editposttype', title: 'Edit Post Type', beforeShow: setEditMode }">
+				<form action="#" style="display: none" class="col-lg-12" data-bind="page: { id: 'editposttype', title: 'Edit Post Type', beforeShow: setEditMode }">
 					<p><a data-bind="page-href: '/viewall'" class="btn btn-xs btn-success">&laquo; View All Post Types</a></p>
 					<div data-bind="page: { id: '?', nameParam: postTypeName }">
-						<div data-bind="with: posttypeedit">
-							<h3>Editing: <span class="text-success" data-bind="text: label"></span></h3>
-							<ul class="nav nav-tabs" data-bind="foreach: $page.children">
-								<li data-bind="css: {active: isVisible}"><a data-bind="text: $data.val('title'), page-href: $data"></a></li>
-							</ul>
-							<div class="tab-pane" data-bind="page: { id: 'general', title: '<?php _e( 'General', $this->plugin_slug ); ?>' }">
-								<?php include_once( 'posttypes/edit-tab-general.php' ); ?>
-							</div>
-							<div class="tab-pane" data-bind="page: { id: 'features', title: '<?php _e( 'Features', $this->plugin_slug ); ?>' }">
-								<?php include_once( 'posttypes/edit-tab-features.php' ); ?>
-							</div>
-							<div class="tab-pane" data-bind="page: { id: 'query', title: '<?php _e( 'Query', $this->plugin_slug ); ?>' }">
-								<?php include_once( 'posttypes/edit-tab-query.php' ); ?>
-							</div>
-							<div class="tab-pane" data-bind="page: { id: 'labels', title: '<?php _e( 'Labels', $this->plugin_slug ); ?>' }">
-								<?php include_once( 'posttypes/edit-tab-labels.php' ); ?>
-							</div>
-							<div class="tab-pane" data-bind="page: { id: 'adminui', title: '<?php _e( 'Admin UI', $this->plugin_slug ); ?>' }">
-								<?php include_once( 'posttypes/edit-tab-adminui.php' ); ?>
-							</div>
-							<div class="tab-pane" data-bind="page: { id: 'permalinks', title: '<?php _e( 'Permalinks', $this->plugin_slug ); ?>' }">
-								<?php include_once( 'posttypes/edit-tab-permalinks.php' ); ?>
-							</div>
-							<div class="tab-pane" data-bind="page: { id: 'capabilities', title: '<?php _e( 'Capabilities', $this->plugin_slug ); ?>' }">
-								<?php include_once( 'posttypes/edit-tab-capabilities.php' ); ?>
-							</div>
-
-						</div>
+						
+								<div data-bind="with: posttypeedit">
+									<div data-bind="with: tempValue">
+										<h3><?php _e( 'Editing:', $this->plugin_slug ); ?> <span class="text-success" data-bind="text: label"></span></h3>
+										<ul class="nav nav-tabs" data-bind="foreach: $page.children">
+											<li data-bind="css: {active: isVisible}"><a data-bind="text: $data.val('title'), page-href: $data"></a></li>
+										</ul>
+										<div class="tab-pane" data-bind="page: { id: 'general', title: '<?php _e( 'General', $this->plugin_slug ); ?>' }">
+											<?php include_once( 'posttypes/edit-tab-general.php' ); ?>
+										</div>
+										<div class="tab-pane" data-bind="page: { id: 'features', title: '<?php _e( 'Features', $this->plugin_slug ); ?>' }">
+											<?php include_once( 'posttypes/edit-tab-features.php' ); ?>
+										</div>
+										<div class="tab-pane" data-bind="page: { id: 'query', title: '<?php _e( 'Query', $this->plugin_slug ); ?>' }">
+											<?php include_once( 'posttypes/edit-tab-query.php' ); ?>
+										</div>
+										<div class="tab-pane" data-bind="page: { id: 'labels', title: '<?php _e( 'Labels', $this->plugin_slug ); ?>' }">
+											<?php include_once( 'posttypes/edit-tab-labels.php' ); ?>
+										</div>
+										<div class="tab-pane" data-bind="page: { id: 'adminui', title: '<?php _e( 'Admin UI', $this->plugin_slug ); ?>' }">
+											<?php include_once( 'posttypes/edit-tab-adminui.php' ); ?>
+										</div>
+										<div class="tab-pane" data-bind="page: { id: 'permalinks', title: '<?php _e( 'Permalinks', $this->plugin_slug ); ?>' }">
+											<?php include_once( 'posttypes/edit-tab-permalinks.php' ); ?>
+										</div>
+										<div class="tab-pane" data-bind="page: { id: 'capabilities', title: '<?php _e( 'Capabilities', $this->plugin_slug ); ?>' }">
+											<?php include_once( 'posttypes/edit-tab-capabilities.php' ); ?>
+										</div>
+									</div>
+								</div>
+							
+							
 					</div>
 
 				</form>

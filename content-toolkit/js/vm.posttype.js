@@ -1,6 +1,7 @@
-var PostType = function( data ) {
+/* globals ko: {}, DEBUG: true */
+var PostTypeValues = function( data ) {
 	this.postType = ko.observable( data.name );
-	this.label = ko.observable( data.label );	
+	this.label = ko.observable( data.label );
 	this.labels = {
 		name: ko.observable( data.labels.name ),
 		singularName: ko.observable( data.labels.singular_name ),
@@ -54,13 +55,26 @@ var PostType = function( data ) {
 		withFront: ko.observable( data.rewrite_with_front ),
 		feeds: ko.observable( data.rewrite_feeds ),
 		pages: ko.observable( data.rewrite_pages )
-	}
+	};
 	this.queryVar = ko.observable( data.query_var );
 	this.canExport = ko.observable( data.can_export );
 	this.dirtyFlag = ko.dirtyFlag( this, false );
 	this.source = ko.observable( data.source );
 	this.taxonomies = ko.observableArray( data.taxonomies );
-}
-PostType.prototype.revertPostType = function() {
-	return true;
+	// this.originalPostData = ko.observable( data );
+};
+var PostType = function( data ) {
+	var self = this;
+	self.originalPostData = data;
+	self.actualValue = ko.observable( new PostTypeValues( data ) );
+	self.tempValue = ko.observable( new PostTypeValues( data ) );
+	self.isDirty = ko.computed( function() {
+		console.log( 'Update comparison!', ko.toJSON( self.actualValue ) !== ko.toJSON( self.tempValue ) );
+		return ( ko.toJSON( self.actualValue ) !== ko.toJSON( self.tempValue ) );
+	});
+};
+PostType.prototype.revertPostType = function( koObject, event ) {
+	if ( window.confirm( 'Are you sure you want to revert this item?' ) ) {
+		this.tempValue( new PostTypeValues( koObject.originalPostData ) );
+	}
 };

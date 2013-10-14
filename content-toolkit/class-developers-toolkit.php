@@ -240,22 +240,32 @@ class Developers_Toolkit {
 		 * Change 'Menu Text' to the text for menu item for the plugin settings page
 		 * Change 'developers-toolkit' to the name of your plugin
 		 */
-		$this->plugin_screen_hook_suffix = add_menu_page(
-			__( 'Custom Post Types', $this->plugin_slug ),
-			__( 'Dev Toolkit', $this->plugin_slug ),
+		add_menu_page(
+			__( 'Content Toolkit', $this->plugin_slug ),
+			__( 'Content Toolkit', $this->plugin_slug ),
 			'read',
 			$this->plugin_slug,
 			array( $this, 'display_plugin_admin_page' )
 		);
+		$this->plugin_screen_hook_suffix = add_submenu_page(
+			$this->plugin_slug,
+			__( 'Custom Post Types', $this->plugin_slug ),
+			__( 'Custom Post Types', $this->plugin_slug ),
+			'read',
+			$this->plugin_slug . '-cpt',
+			array( $this, 'display_cpt_admin_page' )
+		);
 
 	}
-
 	/**
 	 * Render the settings page for this plugin.
 	 *
 	 * @since    1.0.0
 	 */
 	public function display_plugin_admin_page() {
+		// include_once( 'views/admin.php' );
+	}
+	public function display_cpt_admin_page() {
 		include_once( 'views/admin.php' );
 	}
 

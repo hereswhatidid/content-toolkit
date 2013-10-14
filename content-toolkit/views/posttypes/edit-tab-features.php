@@ -94,13 +94,13 @@
 		</p>
 		<p>
 			<label for="post-type-can_export"><?php _e( 'Can Be Exported', $this->plugin_slug ); ?></label>
-			<select id="post-type-can_export" class="form-control" data-bind="booleanValue: can_export">
+			<select id="post-type-can_export" class="form-control" data-bind="booleanValue: canExport">
 				<option value="true"><?php _e( 'Yes', $this->plugin_slug ); ?></option>
 				<option value="false"><?php _e( 'No', $this->plugin_slug ); ?></option>
 			</select>
 			<span class="help-block"><?php _e( 'Can this post_type be exported.', $this->plugin_slug ); ?></span>
 		</p>
-		<p data-bind="selectWithOther: has_archive, selectWithOtherOptions: { selectField: '#post-type-has_archive', textField: '#post-type-has_archive_slug' }">
+		<p data-bind="selectWithOther: hasArchive, selectWithOtherOptions: { selectField: '#post-type-has_archive', textField: '#post-type-has_archive_slug' }">
 			<label for="post-type-has_archive"><?php _e( 'Has Archive', $this->plugin_slug ); ?></label>
 			<select id="post-type-has_archive" class="form-control">
 				<option value="true"><?php _e( 'Yes', $this->plugin_slug ); ?></option>
@@ -116,7 +116,7 @@
 		</p>
 		<p>
 			<label for="post-type-exclude_from_search"><?php _e( 'Exclude from Search', $this->plugin_slug ); ?></label>
-			<select id="post-type-exclude_from_search" class="form-control" data-bind="booleanValue: exclude_from_search">
+			<select id="post-type-exclude_from_search" class="form-control" data-bind="booleanValue: excludeFromSearch">
 				<option value="true"><?php _e( 'Yes', $this->plugin_slug ); ?></option>
 				<option value="false"><?php _e( 'No', $this->plugin_slug ); ?></option>
 			</select>

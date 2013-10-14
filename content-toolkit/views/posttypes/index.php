@@ -8,16 +8,20 @@
 		</tr>
 	</thead>
 	<tbody data-bind="foreach: postTypes">
-		<tr data-bind="css: { warning: dirtyFlag.isDirty() }">
-			<td data-bind="text: label"></td>
-			<td data-bind="text: public"></td>
-			<td data-bind="text: source"></td>
+		<tr data-bind="css: { warning: isDirty }">
+			<td data-bind="text: tempValue().label"></td>
+			<td data-bind="text: tempValue().public"></td>
+			<td data-bind="text: tempValue().source"></td>
 			<td>
 				<div class="btn-group pull-right">
-					<a class="btn btn-xs btn-success" data-bind="page-href: '/editposttype/' + postType() + '/general', click: $root.editPostType">Edit</a>
-					<a class="btn btn-xs btn-warning" data-bind="visible: dirtyFlag.isDirty(), click: revertPostType">Revert</a>
-					<a class="btn btn-xs btn-danger" data-bind="visible: source() !== 'Content Toolkit'">Disable</a>
-					<a class="btn btn-xs btn-danger" data-bind="visible: source() === 'Content Toolkit'">Delete</a>
+					<a class="btn btn-xs btn-success" data-bind="page-href: '/editposttype/' + tempValue().postType() + '/general'"><?php _e( 'Edit', $this->plugin_slug ); ?></a>
+					<a class="btn btn-xs btn-warning" data-bind="visible: isDirty, click: revertPostType"><?php _e( 'Revert', $this->plugin_slug ); ?></a>
+					<!-- ko if: tempValue().source() !== '<?php _e( 'Content Toolkit', $this->plugin_slug ); ?>' -->
+					<a class="btn btn-xs btn-danger"><?php _e( 'Disable', $this->plugin_slug ); ?></a>
+					<!-- /ko -->
+					<!-- ko if: tempValue().source() === '<?php _e( 'Content Toolkit', $this->plugin_slug ); ?>' -->
+					<a class="btn btn-xs btn-danger"><?php _e( 'Delete', $this->plugin_slug ); ?></a>
+					<!-- /ko -->
 				</div>
 			</td>
 		</tr>
